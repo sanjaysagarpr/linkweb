@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modern Portfolio | Dark Theme</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#3B82F6',
+                        secondary: '#10B981',
+                        dark: '#0f172a',
+                        darker: '#020617',
+                    },
+                    animation: {
+                        'float': 'float 3s ease-in-out infinite',
+                        'float-reverse': 'float-reverse 3s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-10px)' },
+                        },
+                        'float-reverse': {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(10px)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #0f172a;
+            color: #e2e8f0;
+        }
+        
+        .gradient-text {
+            background: linear-gradient(90deg, #3B82F6, #10B981);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .blob {
+            filter: blur(60px);
+            opacity: 0.15;
+        }
+        
+        .nav-link {
+            position: relative;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -2px;
+            left: 0;
+            background: linear-gradient(90deg, #3B82F6, #10B981);
+            transition: width 0.3s ease;
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
+        .project-card {
+            transition: all 0.3s ease;
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+            border-color: rgba(59, 130, 246, 0.5);
+        }
+        
+        .skill-badge {
+            transition: all 0.3s ease;
+            background: rgba(30, 41, 59, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .skill-badge:hover {
+            background: rgba(59, 130, 246, 0.2);
+            border-color: rgba(59, 130, 246, 0.5);
+        }
+        
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -30px;
+            top: 0;
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #3B82F6, #10B981);
+            border: 3px solid #0f172a;
+        }
+        
+        @media (max-width: 768px) {
+            .timeline-item::before {
+                left: -20px;
+            }
+        }
+    </style>
+</head>
+<body class="antialiased">
+    <!-- Blob Background Elements -->
+    <div class="fixed -left-20 -top-20 w-64 h-64 rounded-full bg-primary blob animate-float z-0"></div>
+    <div class="fixed right-0 bottom-0 w-96 h-96 rounded-full bg-secondary blob animate-float-reverse z-0"></div>
+    
+    <!-- Navigation -->
+    <nav class="fixed w-full bg-dark/80 backdrop-blur-md border-b border-gray-800 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center">
+                    <a href="C:\Users\sanja\OneDrive\Documents\Sanjay Portfolio.pdf" class="text-xl font-bold gradient-text">Portfolio</a>
+                </div>
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-center space-x-4">
+                        <a href="#home" class="nav-link px-3 py-2 text-sm font-medium">Home</a>
+                        <a href="#about" class="nav-link px-3 py-2 text-sm font-medium">About</a>
+                        <a href="#skills" class="nav-link px-3 py-2 text-sm font-medium">Skills</a>
+                        <a href="#projects" class="nav-link px-3 py-2 text-sm font-medium">Projects</a>
+                        
+                        <a href="#contact" class="nav-link px-3 py-2 text-sm font-medium">Contact</a>
+                    </div>
+                </div>
+                <div class="md:hidden">
+                    <button id="mobile-menu-button" class="text-gray-300 hover:text-white focus:outline-none">
+                        <i class="fas fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Mobile menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-darker border-t border-gray-800">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                <a href="#home" class="block px-3 py-2 text-base font-medium">Home</a>
+                <a href="#about" class="block px-3 py-2 text-base font-medium">About</a>
+                <a href="#skills" class="block px-3 py-2 text-base font-medium">Skills</a>
+                <a href="#projects" class="block px-3 py-2 text-base font-medium">Projects</a>
+                
+                <a href="#contact" class="block px-3 py-2 text-base font-medium">Contact</a>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- Hero Section -->
+    <section id="home" class="min-h-screen flex items-center justify-center relative z-10 pt-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+            <div class="flex flex-col md:flex-row items-center justify-between">
+                <div class="md:w-1/2 mb-10 md:mb-0">
+                    <h1 class="text-4xl md:text-6xl font-bold mb-4">Hi, I'm <span class="gradient-text">Sanjay PR</span></h1>
+                    <h2 class="text-2xl md:text-3xl font-semibold mb-6 text-gray-300">Interior Designer</h2>
+                    <p class="text-lg text-gray-400 mb-8 max-w-lg">
+                       "Designing spaces that reflect individuality and elegance."
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="#contact" class="px-6 py-3 bg-gradient-to-r from-primary to-secondary rounded-lg font-medium hover:opacity-90 transition-all">
+                            Contact Me
+                        </a>
+                        <a href="#projects" class="px-6 py-3 border border-gray-700 rounded-lg font-medium hover:bg-gray-800 transition-all">
+                            View Work
+                        </a>
+                    </div>
+                    <div class="flex mt-8 space-x-4">
+                        
+                        </a>
+                        <a href="https://wa.me/qr/NKL5SK6L6QSOM1" class="text-gray-400 hover:text-white transition-colors">
+                            <i class="fab fa-whatsapp text-2xl"></i>
+                        </a>
+                        <a href="https://www.instagram.com/_sanju_padigere_?igsh=ZWVhYnlwaThwc2Jp" class="text-gray-400 hover:text-white transition-colors">
+                            <i class="fab fa-instagram text-2xl"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="md:w-1/2 flex justify-center">
+                    <div class="relative">
+                        <div class="w-64 h-64 md:w-80 md:h-80 rounded-full overflow-hidden border-4 border-gray-700">
+                            <img src="sanju.1png.jpg" 
+                                 alt="Profile" class="w-full h-full object-cover">
+                        </div>
+                        <div class="absolute -bottom-5 -right-5 bg-gradient-to-r from-primary to-secondary text-white px-4 py-2 rounded-lg font-medium">
+                           
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- About Section -->
+    <section id="about" class="py-20 relative z-10 bg-dark/50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">About <span class="gradient-text">Me</span></h2>
+                <div class="w-20 h-1 bg-gradient-to-r from-primary to-secondary mx-auto"></div>
+            </div>
+            
+            <div class="flex flex-col md:flex-row items-center gap-12">
+                <div class="md:w-1/3 flex justify-center">
+                    <div class="relative">
+                        <div class="w-64 h-64 rounded-lg overflow-hidden border-4 border-gray-700">
+                            <img src="sanju.2png.jpg" 
+                                 alt="About" class="w-full h-full object-cover">
+                        </div>
+                    </div>
+                </div>
+                <div class="md:w-2/3">
+                    <h3 class="text-2xl font-semibold mb-4">Who am I?</h3>
+                    <p class="text-gray-400 mb-6">
+                        I’m Sanjay P R, a passionate and detail-oriented interior designer dedicated to creating functional, aesthetic, and personalized spaces. With a strong understanding of materials, textures, and spatial planning, I blend creativity with practicality to deliver designs that reflect my clients' lifestyles and aspirations. Whether it's residential, commercial, or bespoke interiors, my focus is always on bringing ideas to life with innovation and integrity.
+                    </p>
+                    <p class="text-gray-400 mb-6">
+                        With a strong understanding of spatial planning, materials, and lighting, I bring a balanced approach to every project—from concept development to final execution. I’m proficient in leading design software including AutoCAD, SketchUp, 3ds Max, V-Ray, Enscape, Revit and Photoshop allowing me to visualize and present ideas clearly and effectively.
+                    </p>
+                    <p class="text-gray-400 mb-8">
+                       Driven by innovation, attention to detail, and a commitment to quality, I strive to deliver interiors that enhance everyday living and elevate the human experience.
+                    </p>
+                    <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+                        <div>
+                            <p class="text-gray-400">Name:</p>
+                            <p class="font-medium">Sanjay pr</p>
+                        </div>
+                        <div>
+                            <p class="text-gray-400">Email:</p>
+                            <p class="font-medium">ssanju58851@gmail.com</p>
+                        </div>
+                          
+
+
+                        <div>
+                            <p class="text-gray-400">From:</p>
+                            <p class="font-medium">Banglore,india</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Skills Section -->
+    <section id="skills" class="py-20 relative z-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">My <span class="gradient-text">Skills</span></h2>
+                <div class="w-20 h-1 bg-gradient-to-r from-primary to-secondary mx-auto"></div>
+            </div>
+            
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mb-12">
+                <div class="skill-badge rounded-lg p-4 flex flex-col items-center">
+                    <img src="2.png.jpg">
+                    <span class="font-medium">AutoCAD</span>
+                    
+                </div>
+                <div class="skill-badge rounded-lg p-4 flex flex-col items-center">
+                    <img src="6.png.jpg">
+                    <span class="font-medium">Sketchup</span>
+              
+                </div>
+                <div class="skill-badge rounded-lg p-4 flex flex-col items-center">
+                    <img src="1.png.jpg">
+                    <span class="font-medium">3dsmax</span>
+                    >
+                </div>
+                <div class="skill-badge rounded-lg p-4 flex flex-col items-center">
+                   <img src="5.png.jpg">
+                    <span class="font-medium">Revit</span>
+                    
+                </div>
+                <div class="skill-badge rounded-lg p-4 flex flex-col items-center">
+                    <img src="4.png.jpg">
+                    <span class="font-medium">Photoshop</span>
+                   
+                </div>
+                <div class="skill-badge rounded-lg p-4 flex flex-col items-center">
+                  <img src="3.png.jpg">
+                    <span class="font-medium">Enscape</span>
+                    
+                </div>
+                <div class="skill-badge rounded-lg p-4 flex flex-col items-center">
+                    <img src="7.png.jpg">
+                    <span class="font-medium">V-Ray</span>
+                    
+                </div>
+                
+            </div>
+           
+        </div>
+    </section>
+     
+   <!-- Contact Section -->
+    <section id="contact" class="py-20 relative z-10 bg-dark/50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">Get In <span class="gradient-text">Touch</span></h2>
+                <div class="w-20 h-1 bg-gradient-to-r from-primary to-secondary mx-auto"></div>
+            </div>
+            
+            <div class="flex flex-col md:flex-row gap-12">
+                <div class="md:w-1/2">
+                    <h3 class="text-2xl font-semibold mb-6">Contact Information</h3>
+                    <p class="text-gray-400 mb-8">
+                        Feel free to reach out to me for any questions or opportunities. I'm always open to discussing new projects, creative ideas or opportunities to be part of your vision.
+                    </p>
+                    
+                    <div class="space-y-6">
+                        <div class="flex items-start">
+                            <div class="bg-darker p-3 rounded-lg mr-4">
+                                <i class="fas fa-envelope text-primary"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-medium mb-1">Email</h4>
+                                <p class="text-gray-400">sanjayprsanjaypr06431@gmail.com</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="bg-darker p-3 rounded-lg mr-4">
+                                <i class="fas fa-phone-alt text-primary"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-medium mb-1">Phone</h4>
+                                <p class="text-gray-400">+91 9591626781</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="bg-darker p-3 rounded-lg mr-4">
+                                <i class="fas fa-map-marker-alt text-primary"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-medium mb-1">Location</h4>
+                                <p class="text-gray-400">Banglore,India</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="flex mt-8 space-x-4">
+                        <a href="https://wa.me/qr/NKL5SK6L6QSOM1" class="bg-darker w-10 h-10 rounded-full flex items-center justify-center hover:bg-blue-400 transition-colors">
+                            <i class="fab fa-whatsapp"></i>
+                        </a>
+                        <a href="https://www.instagram.com/_sanju_padigere_?igsh=ZWVhYnlwaThwc2Jp" class="bg-darker w-10 h-10 rounded-full flex items-center justify-center hover:bg-pink-600 transition-colors">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="md:w-1/2">
+                    <form class="space-y-6">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <label for="name" class="block text-sm font-medium mb-2">Your Name</label>
+                                <input type="text" id="name" class="w-full bg-darker border border-gray-700 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" placeholder="Sanjay">
+                            </div>
+                            <div>
+                                <label for="email" class="block text-sm font-medium mb-2">Your Email</label>
+                                <input type="email" id="email" class="w-full bg-darker border border-gray-700 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" placeholder="sanjayprsanjaypr06431@gmail.com">
+                            </div>
+                        </div>
+                        <div>
+                            <label for="subject" class="block text-sm font-medium mb-2">Subject</label>
+                            <input type="text" id="subject" class="w-full bg-darker border border-gray-700 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" placeholder="Let me know how I can help you">
+                        </div>
+                        <div>
+                            <label for="message" class="block text-sm font-medium mb-2">Message</label>
+                            <textarea id="message" rows="5" class="w-full bg-darker border border-gray-700 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" placeholder="Hi sanjay, I would like to talk about..."></textarea>
+                        </div>
+                        <button type="submit" class="w-full bg-gradient-to-r from-primary to-secondary text-white py-3 rounded-lg font-medium hover:opacity-90 transition-all">
+                            Send Message
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer class="py-8 bg-darker border-t border-gray-800 relative z-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row items-center justify-between">
+                <div class="text-center md:text-left mb-4 md:mb-0">
+                    <p class="text-gray-400">© 20203 sanjay pr. All rights reserved</p>
+                </div>
+                <div class="flex space-x-6">
+                    <a href="https://wa.me/qr/NKL5SK6L6QSOM1" class="text-gray-400 hover:text-white transition-colors">
+                        <i class="fab fa-whatsapp"></i>
+                    </a>
+                    <a href="https://www.instagram.com/_sanju_padigere_?igsh=ZWVhYnlwaThwc2Jp" class="text-gray-400 hover:text-white transition-colors">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+    
+    <script>
+        // Mobile menu toggle
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+        
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                // Close mobile menu if open
+                if (!mobileMenu.classList.contains('hidden')) {
+                    mobileMenu.classList.add('hidden');
+                }
+                
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                if (targetElement) {
+                    targetElement.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+        
+        // Add shadow to navbar on scroll
+        window.addEventListener('scroll', () => {
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 10) {
+                nav.classList.add('shadow-lg');
+            } else {
+                nav.classList.remove('shadow-lg');
+            }
+        });
+    </script>
+</body>
+</html>
